@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS community_value (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255)
+);
