@@ -7,16 +7,18 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
-  image: {
+  profile_picture: {
     type: DataTypes.STRING,
   },
-  full_name: {
+  first_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  english_name: {
+  last_name: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
+  
   phone: {
     type: DataTypes.STRING,
   },
@@ -34,23 +36,26 @@ const User = sequelize.define('User', {
   years_of_experience: {
     type: DataTypes.INTEGER,
   },
-  linkedin_url: {
+  linkedin_Id: {
     type: DataTypes.STRING,
   },
   facebook_url: {
+    type: DataTypes.STRING,
+  },
+  linkedin_url: {
     type: DataTypes.STRING,
   },
   community_value: {
     type: DataTypes.INTEGER,
   },
   additional_info: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
   },
   wants_updates: {
     type: DataTypes.BOOLEAN,
   },
   admin_notes: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
   },
   created_at: {
     type: DataTypes.DATE,
