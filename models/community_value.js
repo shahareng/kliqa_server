@@ -1,4 +1,18 @@
-CREATE TABLE IF NOT EXISTS community_value (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255)
-);
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/connection');
+
+const CommunityValue = sequelize.define('CommunityValue', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+  },
+}, {
+  tableName: 'community_value',
+  timestamps: false,
+});
+
+module.exports = CommunityValue;
