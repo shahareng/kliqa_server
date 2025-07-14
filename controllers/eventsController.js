@@ -1,23 +1,31 @@
-const Event = require('../models/events');
+const Entity = require('../models/events');
 
 async function create(data) {
-  return await Event.create(data);
+  return await Entity.create(data);
 }
 
 async function read(filter = {}) {
-  return await Event.findAll({ where: filter });
+  return await Entity.findAll({ where: filter });
 }
 
 async function readOne(filter) {
-  return await Event.findOne({ where: filter });
+  return await Entity.findOne({ where: filter });
 }
 
-async function update(id, data) {
-  return await Event.update(data, { where: { id } });
+
+async function getEntityById(id) {
+return await Entity.findByPk(id);
 }
 
-async function del(id) {
-  return await Event.destroy({ where: { id } });
+async function update(id, updatedData) {
+return await Entity.update(updatedData, { where: { id } });
 }
 
-module.exports = { create, read, readOne, update, del };
+async function deleteById(id) {
+return await Entity.destroy({ where: { id } });
+}
+
+async function getAll() {
+return await Entity.findAll();
+}
+module.exports = { create, read, readOne, update, deleteById, getAll, getEntityById };

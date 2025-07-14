@@ -1,30 +1,56 @@
-const { Event } = require('../models');
+const EventController = require('../controllers/eventsController');
 
 class EventService {
   async createEvent(data) {
-    return await Event.create(data);
+
+    this.#validateEventData(data);
+    await this.#checkForDuplicateEvent(data);
+
+    return await EventController.create(data);
   }
 
   async getEventById(id) {
-    return await Event.findByPk(id);
+    return await EventController.getEntityById(id);
   }
 
   async updateEvent(id, updatedData) {
-    const event = await Event.findByPk(id);
+    const event = await EventController.getEntityById(id);
     if (!event) return null;
     await event.update(updatedData);
     return event;
   }
 
   async deleteEvent(id) {
-    const event = await Event.findByPk(id);
+    const event = await EventController.getEntityById(id);
     if (!event) return false;
     await event.destroy();
     return true;
   }
 
   async getAllEvents() {
-    return await Event.findAll();
+    return await EventController.getAll();
+  }
+
+  #validateEventData(data) {
+    if (!data.event_name || !data.event_date || !data.location) {
+      throw new Error('Missing required fields');
+    }
+
+    if (new Date(data.event_date) < new Date()) {
+      throw new Error('Event date must be in the future');
+    }
+  }
+
+  async #checkForDuplicateEvent(data) {
+    const existing = await EventController.readOne({
+      event_name: data.event_name,
+      event_date: data.event_date,
+      location: data.location,
+    });
+
+    if (existing) {
+      throw new Error('Event already exists at this date and location');
+    }
   }
 }
 

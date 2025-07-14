@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const eventService = require('../services/eventService');
 
-
 // Get all events
 router.get('/', async (req, res) => {
   try {

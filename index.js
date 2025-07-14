@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/events', require('./routes/eventRoutes'));
+app.use('/users', require('./routes/usersRoutes'));
+app.use('/connections', require('./routes/connectionsRouter'));
+app.use('/jobs_history', require('./routes/jobsHistoryRouter'));
+app.use('/event_users', require('./routes/eventUsersRouter'));
 
 sequelize.authenticate()
   .then(() => {
