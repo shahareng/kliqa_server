@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.10.0",
+=======
+    "authenticate": "^0.1.5",
+>>>>>>> 54498c5c85a736b98d6ea1e96856a70f3bb2f850
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
