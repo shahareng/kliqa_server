@@ -2,6 +2,11 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const EventUser = sequelize.define('EventUser', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   event_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
