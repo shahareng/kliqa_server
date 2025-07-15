@@ -10,9 +10,6 @@ app.use(express.json())
 const { sequelize } = require('./models');
 
 
-
-
-
 app.use('/auth', require('./auth/authRoutes'));
 app.use('/events', require('./routes/eventRoutes'));
 app.use('/users', require('./routes/usersRoutes'));
