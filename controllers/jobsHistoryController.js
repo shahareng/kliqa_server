@@ -12,7 +12,7 @@ async function readOne(filter) {
   return await JobsHistory.findOne({ where: filter });
 }
 
-async function getEntityById(id) {
+async function readEntityById(id) {
   return await JobsHistory.findByPk(id);
 }
 
@@ -35,5 +35,5 @@ module.exports = {
   update,
   deleteById,
   getAll,
-  getEntityById
+  readEntityById
 };

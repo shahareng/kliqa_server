@@ -8,7 +8,7 @@ class EventUserService {
   }
 
   async getEventUser(event_id, user_id) {
-    return await EventUserController.getEntityById({ event_id, user_id });
+    return await EventUserController.readEntityById({ event_id, user_id });
   }
 
   async updateEventUser(event_id, user_id, updatedData) {

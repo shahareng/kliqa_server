@@ -8,18 +8,18 @@ class ConnectionService {
   }
 
   async getConnectionById(id) {
-    return await ConnectionController.getEntityById(id);
+    return await ConnectionController.readEntityById(id);
   }
 
   async updateConnection(id, updatedData) {
-    const connection = await ConnectionController.getEntityById(id);
+    const connection = await ConnectionController.readEntityById(id);
     if (!connection) return null;
     await connection.update(updatedData);
     return connection;
   }
 
   async deleteConnection(id) {
-    const connection = await ConnectionController.getEntityById(id);
+    const connection = await ConnectionController.readEntityById(id);
     if (!connection) return false;
     await connection.destroy();
     return true;

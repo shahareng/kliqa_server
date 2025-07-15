@@ -12,7 +12,7 @@ async function readOne(filter) {
   return await EventUser.findOne({ where: filter });
 }
 
-async function getEntityById({ event_id, user_id }) {
+async function readEntityById({ event_id, user_id }) {
   return await EventUser.findOne({ where: { event_id, user_id } });
 }
 
@@ -39,5 +39,5 @@ module.exports = {
   update,
   deleteById,
   getAll,
-  getEntityById
+  readEntityById
 };

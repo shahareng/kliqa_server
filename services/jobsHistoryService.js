@@ -7,18 +7,18 @@ class JobsHistoryService {
   }
 
   async getJobHistoryById(id) {
-    return await JobsHistoryController.getEntityById(id);
+    return await JobsHistoryController.readEntityById(id);
   }
 
   async updateJobHistory(id, updatedData) {
-    const job = await JobsHistoryController.getEntityById(id);
+    const job = await JobsHistoryController.readEntityById(id);
     if (!job) return null;
     await job.update(updatedData);
     return job;
   }
 
   async deleteJobHistory(id) {
-    const job = await JobsHistoryController.getEntityById(id);
+    const job = await JobsHistoryController.readEntityById(id);
     if (!job) return false;
     await job.destroy();
     return true;

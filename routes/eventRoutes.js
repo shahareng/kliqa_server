@@ -35,7 +35,7 @@ router.post('/add', async (req, res) => {
 // Update event
 router.put('/update/:id', async (req, res) => {
   try {
-    const updatedEvent = await eventService.updateEvent(req.params.eventId, req.body);
+    const updatedEvent = await eventService.updateEvent(req.params.id, req.body);
     res.status(200).send(updatedEvent);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
@@ -45,7 +45,7 @@ router.put('/update/:id', async (req, res) => {
 // Delete event
 router.delete('/delete/:id', async (req, res) => {
   try {
-    await eventService.deleteEvent(req.params.eventId);
+    await eventService.deleteEvent(req.params.id);
     res.sendStatus(204);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);

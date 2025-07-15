@@ -13,9 +13,9 @@ router.get('/', async (req, res) => {
 });
 
 // Get specific connection by match_id
-router.get('/:matchId', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const connection = await connectionService.getConnectionById(req.params.matchId);
+    const connection = await connectionService.getConnectionById(req.params.id);
     res.status(200).send(connection);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
@@ -35,7 +35,7 @@ router.post('/add', async (req, res) => {
 // Update connection
 router.put('/update/:id', async (req, res) => {
   try {
-    const updatedConnection = await connectionService.updateConnection(req.params.matchId, req.body);
+    const updatedConnection = await connectionService.updateConnection(req.params.id, req.body);
     res.status(200).send(updatedConnection);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
@@ -45,7 +45,7 @@ router.put('/update/:id', async (req, res) => {
 // Delete connection
 router.delete('/delete/:id', async (req, res) => {
   try {
-    await connectionService.deleteConnection(req.params.matchId);
+    await connectionService.deleteConnection(req.params.id);
     res.sendStatus(204);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
