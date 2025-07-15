@@ -2,8 +2,12 @@ const CommunityValueController = require('../controllers/communityValueControlle
 
 class CommunityValueService {
   async createCommunityValue(data) {
-    this.#validateData(data);
-    return await CommunityValueController.create(data);
+    try {
+      this.#validateData(data);
+      return await CommunityValueController.create(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getCommunityValueById(id) {

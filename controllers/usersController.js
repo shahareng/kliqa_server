@@ -1,4 +1,4 @@
-const { User, JobHistory, Connection, Event, CommunityValue } = require('../models');
+const { User, JobsHistory, Connection, Event, CommunityValue } = require('../models');
 
 async function create(data) {
   return await User.create(data);
@@ -15,7 +15,7 @@ async function readOne(filter) {
 async function readEntityById(id) {
   return await User.findByPk(id, {
     include: [
-      { model: JobHistory, required: false },
+      { model: JobsHistory, required: false },
       { model: Connection, as: 'initiatedConnections', required: false },
       { model: Connection, as: 'receivedConnections', required: false },
       { model: Event, through: { attributes: [] }, required: false },
@@ -35,7 +35,7 @@ async function deleteById(id) {
 async function readAll() {
   return await User.findAll({
     include: [
-      { model: JobHistory, required: false },
+      { model: JobsHistory, required: false },
       { model: Connection, as: 'initiatedConnections', required: false },
       { model: Connection, as: 'receivedConnections', required: false },
       { model: Event, through: { attributes: [] }, required: false },

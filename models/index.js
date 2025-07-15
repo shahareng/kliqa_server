@@ -2,9 +2,9 @@ const sequelize = require('../db/connection');
 
 const User = require('./users'),
       Event = require('./events'),
-      EventUser = require('./event_users');
-      JobHistory = require('./jobs_history');
-      Connection = require('./connections');
+      EventUser = require('./event_users'),
+      JobsHistory = require('./jobs_history'),
+      Connection = require('./connections'),
       CommunityValue = require('./community_value');
 
 // Associations
@@ -18,9 +18,13 @@ Event.belongsToMany(User, {
   foreignKey: 'event_id',
   otherKey: 'user_id',
 });
+EventUser.belongsTo(User, { foreignKey: 'user_id' });
+EventUser.belongsTo(Event, { foreignKey: 'event_id' });
 
-User.hasMany(JobHistory, { foreignKey: 'user_id' });
-JobHistory.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(EventUser, { foreignKey: 'user_id' });
+Event.hasMany(EventUser, { foreignKey: 'event_id' });
+User.hasMany(JobsHistory, { foreignKey: 'user_id' });
+JobsHistory.belongsTo(User, { foreignKey: 'user_id' });
 
 User.hasMany(Connection, { foreignKey: 'user_id1', as: 'initiatedConnections' });
 User.hasMany(Connection, { foreignKey: 'user_id2', as: 'receivedConnections' });
@@ -35,7 +39,7 @@ module.exports = {
   User,
   Event,
   EventUser,
-  JobHistory,
+  JobsHistory,
   Connection,
   CommunityValue,
 };

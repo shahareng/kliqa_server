@@ -2,9 +2,13 @@ const UserController = require('../controllers/userscontroller');
 
 class UserService {
   async createUser(data) {
-    this.#validateUserData(data);
-    await this.#checkForDuplicateEmail(data.email);
-    return await UserController.create(data);
+    try {
+      this.#validateUserData(data);
+      await this.#checkForDuplicateEmail(data.email);
+      return await UserController.create(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getUserById(id) {
@@ -30,7 +34,7 @@ class UserService {
   }
 
   #validateUserData(data) {
-    if (!data.first_name || !data.last_name ) {
+    if (!data.first_name || !data.last_name) {
       throw new Error('Missing required fields');
     }
   }

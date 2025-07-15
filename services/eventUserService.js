@@ -2,9 +2,13 @@ const EventUserController = require('../controllers/eventUsersController');
 
 class EventUserService {
   async createEventUser(data) {
-    this.#validateData(data);
-    await this.#checkDuplicate(data);
-    return await EventUserController.create(data);
+    try {
+      this.#validateData(data);
+      await this.#checkDuplicate(data);
+      return await EventUserController.create(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getEventUser(event_id, user_id) {

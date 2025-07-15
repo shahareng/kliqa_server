@@ -1,73 +1,31 @@
-const { Event, User } = require('../models');
+const Entity = require('../models/events');
 
 async function create(data) {
-  return await Event.create(data);
+  return await Entity.create(data);
 }
 
 async function read(filter = {}) {
-  return await Event.findAll({
-    where: filter,
-    include: [
-      {
-        model: User,
-        through: { attributes: [] }, 
-        required: false
-      }
-    ]
-  });
+  return await Entity.findAll({ where: filter });
 }
 
 async function readOne(filter) {
-  return await Event.findOne({
-    where: filter,
-    include: [
-      {
-        model: User,
-        through: { attributes: [] },
-        required: false
-      }
-    ]
-  });
+  return await Entity.findOne({ where: filter });
 }
 
+
 async function readEntityById(id) {
-  return await Event.findByPk(id, {
-    include: [
-      {
-        model: User,
-        through: { attributes: [] },
-        required: false
-      }
-    ]
-  });
+return await Entity.findByPk(id);
 }
 
 async function update(id, updatedData) {
-  return await Event.update(updatedData, { where: { id } });
+return await Entity.update(updatedData, { where: { id } });
 }
 
 async function deleteById(id) {
-  return await Event.destroy({ where: { id } });
+return await Entity.destroy({ where: { id } });
 }
 
 async function getAll() {
-  return await Event.findAll({
-    include: [
-      {
-        model: User,
-        through: { attributes: [] },
-        required: false
-      }
-    ]
-  });
+return await Entity.findAll();
 }
-
-module.exports = {
-  create,
-  read,
-  readOne,
-  update,
-  deleteById,
-  getAll,
-  readEntityById
-};
+module.exports = { create, read, readOne, update, deleteById, getAll, readEntityById };
