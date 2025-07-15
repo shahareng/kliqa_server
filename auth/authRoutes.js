@@ -94,7 +94,7 @@ if (!user) {
       linkedinUrl
     });
   } catch (err) {
-    console.error('Error LinkedIn auth failed:', err.response?.data || err.message);
+    console.error('LinkedIn auth failed:', err.response?.data || err.message);
     res.status(500).json({ error: 'LinkedIn authentication failed' });
   }
 });
