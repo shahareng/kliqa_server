@@ -29,7 +29,7 @@ class CommunityValueService {
   }
 
   async getAllCommunityValues() {
-    return await CommunityValueController.getAll();
+    return await CommunityValueController.readAll();
   }
 
   #validateData(data) {

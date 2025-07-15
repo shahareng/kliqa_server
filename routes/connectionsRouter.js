@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const connectionService = require('../services/connectionService');
-const UserController = require('../controllers/userscontroller');
 
 // Get all connections
 router.get('/', async (req, res) => {

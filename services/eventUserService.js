@@ -30,7 +30,7 @@ class EventUserService {
   }
 
   async getAllEventUsers() {
-    return await EventUserController.getAll();
+    return await EventUserController.readAll();
   }
 
   #validateData(data) {

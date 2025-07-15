@@ -29,7 +29,7 @@ class JobsHistoryService {
   }
 
   async getAllJobsHistory() {
-    return await JobsHistoryController.getAll();
+    return await JobsHistoryController.readAll();
   }
 
   #validateJobData(data) {
