@@ -18,6 +18,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  need_from_community: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   phone: {
   type: DataTypes.STRING,
   validate: {
