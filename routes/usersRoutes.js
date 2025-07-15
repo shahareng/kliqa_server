@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // Get specific user by ID
 router.get('/:id', async (req, res) => {
   try {
-    const user = await userService.getUserById(req.params.userId);
+    const user = await userService.getUserById(req.params.id);
     res.status(200).send(user);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
@@ -35,7 +35,7 @@ router.post('/add', async (req, res) => {
 // Update user
 router.put('/update/:id', async (req, res) => {
   try {
-    const updatedUser = await userService.updateUser(req.params.userId, req.body);
+    const updatedUser = await userService.updateUser(req.params.id, req.body);
     res.status(200).send(updatedUser);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
@@ -45,7 +45,7 @@ router.put('/update/:id', async (req, res) => {
 // Delete user
 router.delete('/delete/:id', async (req, res) => {
   try {
-    await userService.deleteUser(req.params.userId);
+    await userService.deleteUser(req.params.id);
     res.sendStatus(204);
   } catch (error) {
     res.status(error.code ?? 400).send(error.message);
