@@ -13,7 +13,7 @@ async function readOne(filter) {
 }
 
 
-async function getEntityById(id) {
+async function readEntityById(id) {
 return await Entity.findByPk(id);
 }
 
@@ -28,4 +28,4 @@ return await Entity.destroy({ where: { id } });
 async function getAll() {
 return await Entity.findAll();
 }
-module.exports = { create, read, readOne, update, deleteById, getAll, getEntityById };
+module.exports = { create, read, readOne, update, deleteById, getAll, readEntityById };

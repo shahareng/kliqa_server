@@ -10,18 +10,18 @@ class EventService {
   }
 
   async getEventById(id) {
-    return await EventController.getEntityById(id);
+    return await EventController.readEntityById(id);
   }
 
   async updateEvent(id, updatedData) {
-    const event = await EventController.getEntityById(id);
+    const event = await EventController.readEntityById(id);
     if (!event) return null;
     await event.update(updatedData);
     return event;
   }
 
   async deleteEvent(id) {
-    const event = await EventController.getEntityById(id);
+    const event = await EventController.readEntityById(id);
     if (!event) return false;
     await event.destroy();
     return true;

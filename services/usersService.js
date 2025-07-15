@@ -8,18 +8,18 @@ class UserService {
   }
 
   async getUserById(id) {
-    return await UserController.getEntityById(id);
+    return await UserController.readEntityById(id);
   }
 
   async updateUser(id, updatedData) {
-    const user = await UserController.getEntityById(id);
+    const user = await UserController.readEntityById(id);
     if (!user) return null;
     await user.update(updatedData);
     return user;
   }
 
   async deleteUser(id) {
-    const user = await UserController.getEntityById(id);
+    const user = await UserController.readEntityById(id);
     if (!user) return false;
     await user.destroy();
     return true;
