@@ -1,9 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-const dotenv = require('dotenv');
-const user = require('./models/user');
-
-dotenv.config();
 
 const router = express.Router();
 
@@ -12,12 +8,12 @@ const CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:5173/members/general';
 
 
-router.get('/auth/test', (req, res) => {
+router.get('/test', (req, res) => {
   const result = res.send('LinkedIn authRoutes is working ✅');
   console.log(result);
 });
 
-router.get('/auth/linkedin/callback', async (req, res) => {
+router.get('/linkedin/callback', async (req, res) => {
   const { code } = req.query;
   console.log('📥 קיבלנו קוד מ-LinkedIn:', code);
 
