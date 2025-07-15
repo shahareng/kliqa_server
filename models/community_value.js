@@ -10,6 +10,9 @@ const CommunityValue = sequelize.define('CommunityValue', {
   name: {
     type: DataTypes.STRING,
   },
+  lable: {
+    type: DataTypes.STRING,
+  },
 }, {
   tableName: 'community_value',
   timestamps: false,
