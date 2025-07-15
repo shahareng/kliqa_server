@@ -18,18 +18,21 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  
   phone: {
-    type: DataTypes.STRING,
+  type: DataTypes.STRING,
+  validate: {
+      is: /^[0-9+\-()\s]{7,15}$/i 
+    }
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: true,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  
   city: {
     type: DataTypes.STRING,
   },
@@ -41,9 +44,15 @@ const User = sequelize.define('User', {
   },
   facebook_url: {
     type: DataTypes.STRING,
+    validate: {
+      isUrl: true,
+    }
   },
   linkedin_url: {
     type: DataTypes.STRING,
+    validate: {
+      isUrl: true,
+    }
   },
   community_value: {
     type: DataTypes.INTEGER,
