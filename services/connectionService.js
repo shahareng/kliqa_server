@@ -31,7 +31,7 @@ class ConnectionService {
   }
 
   async getAllConnections() {
-    return await ConnectionController.getAll();
+    return await ConnectionController.readAll();
   }
 
   async #validateConnectionData(data) {

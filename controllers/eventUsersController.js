@@ -42,7 +42,7 @@ async function deleteById(id) {
   return await EventUser.destroy({ where: { id } });
 }
 
-async function getAll() {
+async function readAll() {
   return await EventUser.findAll({
     include: [
       { model: User },
@@ -57,6 +57,6 @@ module.exports = {
   readOne,
   update,
   deleteById,
-  getAll,
+  readAll,
   readEntityById
 };

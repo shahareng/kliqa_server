@@ -24,7 +24,7 @@ async function deleteById(id) {
   return await CommunityValue.destroy({ where: { id } });
 }
 
-async function getAll() {
+async function readAll() {
   return await CommunityValue.findAll();
 }
 
@@ -34,6 +34,6 @@ module.exports = {
   readOne,
   update,
   deleteById,
-  getAll,
+  readAll,
   readEntityById
 };

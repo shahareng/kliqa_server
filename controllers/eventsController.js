@@ -25,7 +25,7 @@ async function deleteById(id) {
 return await Entity.destroy({ where: { id } });
 }
 
-async function getAll() {
+async function readAll() {
 return await Entity.findAll();
 }
-module.exports = { create, read, readOne, update, deleteById, getAll, readEntityById };
+module.exports = { create, read, readOne, update, deleteById, readAll, readEntityById };

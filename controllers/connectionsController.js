@@ -41,7 +41,7 @@ async function deleteById(id) {
   return await Connection.destroy({ where: { id } }); 
 }
 
-async function getAll() {
+async function readAll() {
   return await Connection.findAll({
     include: [
       { model: User, as: 'initiator', required: false },
@@ -56,6 +56,6 @@ module.exports = {
   readOne,
   update,
   deleteById,
-  getAll,
+  readAll,
   readEntityById
 };

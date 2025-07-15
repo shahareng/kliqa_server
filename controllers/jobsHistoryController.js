@@ -38,7 +38,7 @@ async function deleteById(id) {
   return await JobsHistory.destroy({ where: { id } });
 }
 
-async function getAll() {
+async function readAll() {
   return await JobsHistory.findAll({
     include: [
       { model: User, required: false }
@@ -52,6 +52,6 @@ module.exports = {
   readOne,
   update,
   deleteById,
-  getAll,
+  readAll,
   readEntityById
 };

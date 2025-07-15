@@ -30,7 +30,7 @@ class EventService {
   }
 
   async getAllEvents() {
-    return await EventController.getAll();
+    return await EventController.readAll();
   }
 
   #validateEventData(data) {
