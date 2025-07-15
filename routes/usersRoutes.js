@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get specific user by ID
-router.get('/:userId', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const user = await userService.getUserById(req.params.userId);
     res.status(200).send(user);
@@ -23,7 +23,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // Create a new user
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const newUser = await userService.createUser(req.body);
     res.status(201).send(newUser);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update user
-router.put('/:userId', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
   try {
     const updatedUser = await userService.updateUser(req.params.userId, req.body);
     res.status(200).send(updatedUser);
@@ -43,7 +43,7 @@ router.put('/:userId', async (req, res) => {
 });
 
 // Delete user
-router.delete('/:userId', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     await userService.deleteUser(req.params.userId);
     res.sendStatus(204);

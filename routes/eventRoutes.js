@@ -23,7 +23,7 @@ router.get('/:eventId', async (req, res) => {
 });
 
 // Create a new event
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const newEvent = await eventService.createEvent(req.body);
     res.status(201).send(newEvent);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update event
-router.put('/:eventId', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
   try {
     const updatedEvent = await eventService.updateEvent(req.params.eventId, req.body);
     res.status(200).send(updatedEvent);
@@ -43,7 +43,7 @@ router.put('/:eventId', async (req, res) => {
 });
 
 // Delete event
-router.delete('/:eventId', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     await eventService.deleteEvent(req.params.eventId);
     res.sendStatus(204);
