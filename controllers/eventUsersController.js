@@ -1,35 +1,54 @@
-const EventUser = require('../models/event_users');
+const { EventUser, User, Event } = require('../models');
 
 async function create(data) {
   return await EventUser.create(data);
 }
 
 async function read(filter = {}) {
-  return await EventUser.findAll({ where: filter });
+  return await EventUser.findAll({
+    where: filter,
+    include: [
+      { model: User, required: false },
+      { model: Event, required: false }
+    ]
+  });
 }
 
 async function readOne(filter) {
-  return await EventUser.findOne({ where: filter });
+  return await EventUser.findOne({
+    where: filter,
+    include: [
+      { model: User, required: false },
+      { model: Event, required: false }
+    ]
+  });
 }
 
 async function readEntityById({ event_id, user_id }) {
-  return await EventUser.findOne({ where: { event_id, user_id } });
-}
-
-async function update({ event_id, user_id }, updatedData) {
-  return await EventUser.update(updatedData, {
-    where: { event_id, user_id }
+  return await EventUser.findOne({
+    where: { event_id, user_id },
+    include: [
+      { model: User, required: false },
+      { model: Event, required: false }
+    ]
   });
 }
 
-async function deleteById({ event_id, user_id }) {
-  return await EventUser.destroy({
-    where: { event_id, user_id }
-  });
+async function update(id, updatedData) {
+  return await EventUser.update(updatedData, { where: { id } });
+}
+
+async function deleteById(id) {
+  return await EventUser.destroy({ where: { id } });
 }
 
 async function getAll() {
-  return await EventUser.findAll();
+  return await EventUser.findAll({
+    include: [
+      { model: User, required: false },
+      { model: Event, required: false }
+    ]
+  });
 }
 
 module.exports = {
