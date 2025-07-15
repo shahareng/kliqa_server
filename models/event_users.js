@@ -2,19 +2,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const EventUser = sequelize.define('EventUser', {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
   event_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    validate: {
-      isInt: { msg: 'event_id must be an integer' },
-      min: { args: [1], msg: 'event_id must be a positive number' },
-    },
     references: {
       model: 'events',
       key: 'id',
@@ -25,10 +16,6 @@ const EventUser = sequelize.define('EventUser', {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    validate: {
-      isInt: { msg: 'user_id must be an integer' },
-      min: { args: [1], msg: 'user_id must be a positive number' },
-    },
     references: {
       model: 'users',
       key: 'id',
