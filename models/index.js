@@ -1,11 +1,11 @@
 const sequelize = require('../db/connection');
 
-const User = require('./users');
-const Event = require('./events');
-const EventUser = require('./event_users');
-const JobHistory = require('./jobs_history');
-const Connection = require('./connections');
-const CommunityValue = require('./community_value');
+const User = require('./users'),
+      Event = require('./events'),
+      EventUser = require('./event_users');
+      JobHistory = require('./jobs_history');
+      Connection = require('./connections');
+      CommunityValue = require('./community_value');
 
 // Associations
 User.belongsToMany(Event, {

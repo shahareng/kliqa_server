@@ -26,16 +26,12 @@ class UserService {
   }
 
   async getAllUsers() {
-    return await UserController.getAll();
+    return await UserController.readAll();
   }
 
   #validateUserData(data) {
-    if (!data.first_name || !data.last_name || !data.password) {
+    if (!data.first_name || !data.last_name ) {
       throw new Error('Missing required fields');
-    }
-
-    if (data.email && !this.#isValidEmail(data.email)) {
-      throw new Error('Invalid email format');
     }
   }
 
