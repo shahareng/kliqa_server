@@ -2,8 +2,12 @@ const JobsHistoryController = require('../controllers/jobsHistoryController');
 
 class JobsHistoryService {
   async createJobHistory(data) {
-    this.#validateJobData(data);
-    return await JobsHistoryController.create(data);
+    try {
+      this.#validateJobData(data);
+      return await JobsHistoryController.create(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getJobHistoryById(id) {
