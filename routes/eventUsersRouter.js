@@ -26,7 +26,7 @@ router.get('/:event_id/:user_id', async (req, res) => {
 });
 
 // Create a new event-user relation
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const newRelation = await eventUserService.createEventUser(req.body);
     res.status(201).send(newRelation);
