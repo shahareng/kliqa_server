@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create new job history
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const newJob = await jobsHistoryService.createJobHistory(req.body);
     res.status(201).send(newJob);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update job history
-router.put('/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
   try {
     const updatedJob = await jobsHistoryService.updateJobHistory(req.params.id, req.body);
     res.status(200).send(updatedJob);
@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete job history
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     await jobsHistoryService.deleteJobHistory(req.params.id);
     res.sendStatus(204);

@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update event-user relation
-router.put('/:event_id/:user_id', async (req, res) => {
+router.put('/update/:event_id/:user_id', async (req, res) => {
   try {
     const updated = await eventUserService.updateEventUser(
       req.params.event_id,
@@ -50,7 +50,7 @@ router.put('/:event_id/:user_id', async (req, res) => {
 });
 
 // Delete event-user relation
-router.delete('/:event_id/:user_id', async (req, res) => {
+router.delete('/delete/:event_id/:user_id', async (req, res) => {
   try {
     await eventUserService.deleteEventUser(
       req.params.event_id,

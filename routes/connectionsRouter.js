@@ -23,7 +23,7 @@ router.get('/:matchId', async (req, res) => {
 });
 
 // Create a new connection
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const newConnection = await connectionService.createConnection(req.body);
     res.status(201).send(newConnection);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update connection
-router.put('/:matchId', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
   try {
     const updatedConnection = await connectionService.updateConnection(req.params.matchId, req.body);
     res.status(200).send(updatedConnection);
@@ -43,7 +43,7 @@ router.put('/:matchId', async (req, res) => {
 });
 
 // Delete connection
-router.delete('/:matchId', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     await connectionService.deleteConnection(req.params.matchId);
     res.sendStatus(204);
