@@ -53,11 +53,20 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-router.post('/add/:user_id/:event_id', async (req, res) => {
+router.post('/add-user-event/:user_id/:event_id', async (req, res) => {
   try {
     const { user_id, event_id } = req.params;
     await userService.addUserToEvent(user_id, event_id);
     res.status(201).send('User added to event successfully');
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+router.post('/add-user-group/:user_id/:group_id', async (req, res) => {
+  try {
+    const { user_id, group_id } = req.params;
+    await userService.addUserToGroup(user_id, group_id);
+    res.status(201).send('User added to group successfully');
   } catch (error) {
     res.status(400).send(error.message);
   }
