@@ -1,19 +1,33 @@
-const JobsHistory = require('../models/jobs_history');
+const { JobsHistory, User } = require('../models');
 
 async function create(data) {
   return await JobsHistory.create(data);
 }
 
 async function read(filter = {}) {
-  return await JobsHistory.findAll({ where: filter });
+  return await JobsHistory.findAll({
+    where: filter,
+    include: [
+      { model: User, required: false }
+    ]
+  });
 }
 
 async function readOne(filter) {
-  return await JobsHistory.findOne({ where: filter });
+  return await JobsHistory.findOne({
+    where: filter,
+    include: [
+      { model: User, required: false }
+    ]
+  });
 }
 
 async function readEntityById(id) {
-  return await JobsHistory.findByPk(id);
+  return await JobsHistory.findByPk(id, {
+    include: [
+      { model: User, required: false }
+    ]
+  });
 }
 
 async function update(id, updatedData) {
@@ -24,8 +38,12 @@ async function deleteById(id) {
   return await JobsHistory.destroy({ where: { id } });
 }
 
-async function getAll() {
-  return await JobsHistory.findAll();
+async function readAll() {
+  return await JobsHistory.findAll({
+    include: [
+      { model: User, required: false }
+    ]
+  });
 }
 
 module.exports = {
@@ -34,6 +52,6 @@ module.exports = {
   readOne,
   update,
   deleteById,
-  getAll,
+  readAll,
   readEntityById
 };

@@ -1,7 +1,8 @@
+// models/groups.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
-const CommunityValue = sequelize.define('CommunityValue', {
+const Group = sequelize.define('Groups', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -9,13 +10,11 @@ const CommunityValue = sequelize.define('CommunityValue', {
   },
   name: {
     type: DataTypes.STRING,
-  },
-  lable: {
-    type: DataTypes.STRING,
+    allowNull: false,
   },
 }, {
-  tableName: 'community_value',
+  tableName: 'community_group',
   timestamps: false,
 });
 
-module.exports = CommunityValue;
+module.exports = Group;

@@ -2,11 +2,13 @@ const EventController = require('../controllers/eventsController');
 
 class EventService {
   async createEvent(data) {
-
-    this.#validateEventData(data);
-    await this.#checkForDuplicateEvent(data);
-
-    return await EventController.create(data);
+    try {
+      this.#validateEventData(data);
+      await this.#checkForDuplicateEvent(data);
+      return await EventController.create(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getEventById(id) {
@@ -28,7 +30,7 @@ class EventService {
   }
 
   async getAllEvents() {
-    return await EventController.getAll();
+    return await EventController.readAll();
   }
 
   #validateEventData(data) {

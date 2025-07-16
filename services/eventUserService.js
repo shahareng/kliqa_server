@@ -1,48 +1,20 @@
 const EventUserController = require('../controllers/eventUsersController');
+const { validateEventUser } = require('../utils/validators/eventUserValidator');
 
 class EventUserService {
-  async createEventUser(data) {
-    this.#validateData(data);
-    await this.#checkDuplicate(data);
-    return await EventUserController.create(data);
-  }
-
+ 
   async getEventUser(event_id, user_id) {
     return await EventUserController.readEntityById({ event_id, user_id });
   }
-
-  async updateEventUser(event_id, user_id, updatedData) {
-    const record = await this.getEventUser(event_id, user_id);
-    if (!record) return null;
-    await record.update(updatedData);
-    return record;
-  }
-
-  async deleteEventUser(event_id, user_id) {
-    const record = await this.getEventUser(event_id, user_id);
-    if (!record) return false;
-    await record.destroy();
-    return true;
-  }
+    async getEventById(event_id) {
+        return await EventUserController.findByEventId(event_id);
+    }
+    async getUserById(user_id) {
+        return await EventUserController.findByUserId( user_id );
+    }
 
   async getAllEventUsers() {
-    return await EventUserController.getAll();
-  }
-
-  #validateData(data) {
-    if (!data.event_id || !data.user_id) {
-      throw new Error('Missing required fields: event_id and user_id');
-    }
-  }
-
-  async #checkDuplicate(data) {
-    const existing = await EventUserController.readOne({
-      event_id: data.event_id,
-      user_id: data.user_id
-    });
-    if (existing) {
-      throw new Error('This user is already assigned to this event');
-    }
+    return await EventUserController.readAll();
   }
 }
 

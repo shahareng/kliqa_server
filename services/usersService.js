@@ -1,17 +1,31 @@
 const UserController = require('../controllers/userscontroller');
+const { User } = require('../models');
+const { userValidator, commonValidator } = require('../utils/validators');
+const { validatePositiveInteger } = require('../utils/validators/commonValidator');
+const { validateUserData, checkForDuplicateEmail, checkForDuplicatePhone } = require('../utils/validators/userValidator');
+const eventService = require('./eventService');
+const groupService = require('./groupService');
 
 class UserService {
   async createUser(data) {
-    this.#validateUserData(data);
-    await this.#checkForDuplicateEmail(data.email);
+   try {
+    validateUserData(data);
+    await checkForDuplicateEmail(data.email, UserController);
+    await checkForDuplicatePhone(data.phone, UserController);
     return await UserController.create(data);
+  } catch (error) {
+    console.log("createUser  "+error);
+      throw error; 
+  }
   }
 
   async getUserById(id) {
+    validatePositiveInteger(id, 'id');
     return await UserController.readEntityById(id);
   }
 
   async updateUser(id, updatedData) {
+    validatePositiveInteger(id, 'id');
     const user = await UserController.readEntityById(id);
     if (!user) return null;
     await user.update(updatedData);
@@ -19,6 +33,7 @@ class UserService {
   }
 
   async deleteUser(id) {
+    validatePositiveInteger(id, 'id');
     const user = await UserController.readEntityById(id);
     if (!user) return false;
     await user.destroy();
@@ -26,30 +41,31 @@ class UserService {
   }
 
   async getAllUsers() {
-    return await UserController.getAll();
+    return await UserController.readAll();
   }
+async addUserToEvent(user_id, event_id) {
+    const user = await this.getUserById(user_id);
+    const event = await eventService.getEventById(event_id);
 
-  #validateUserData(data) {
-    if (!data.first_name || !data.last_name || !data.password) {
-      throw new Error('Missing required fields');
+    if (!user || !event) {
+      throw new Error('User or event not found');
     }
 
-    if (data.email && !this.#isValidEmail(data.email)) {
-      throw new Error('Invalid email format');
-    }
+    await user.addEvent(event);
   }
+  
 
-  async #checkForDuplicateEmail(email) {
-    if (!email) return;
-    const existing = await UserController.readOne({ email });
-    if (existing) {
-      throw new Error('User with this email already exists');
-    }
-  }
+  async addUserToGroup(user_id, group_id) {
+    const user = await this.getUserById(user_id);
+    const group = await groupService.getGroupById(group_id);
 
-  #isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!user || !group) {
+      throw new Error('User or group not found');
+    }
+
+    await user.addGroup(group);
   }
+  
 }
 
 module.exports = new UserService();

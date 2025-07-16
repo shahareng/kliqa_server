@@ -12,7 +12,6 @@ const cvUploadRoutes = require('./routes/cvUploadRoutes');
 
 
 
-
 app.use('/upload', require('./routes/uploadRoutes'));
 app.use('/upload', cvUploadRoutes);
 app.use('/auth', require('./auth/authRoutes'));
@@ -21,6 +20,9 @@ app.use('/users', require('./routes/usersRoutes'));
 app.use('/connections', require('./routes/connectionsRouter'));
 app.use('/jobs_history', require('./routes/jobsHistoryRouter'));
 app.use('/event_users', require('./routes/eventUsersRouter'));
+app.use('/community_values',  require('./routes/communityValueRoutes'));
+app.use('/groups', require('./routes/groupRoutes'));
+
 
 
 

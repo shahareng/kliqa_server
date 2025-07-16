@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userService = require('../services/usersService');
 
+
 // Get all users
 router.get('/', async (req, res) => {
   try {
@@ -52,4 +53,22 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
+router.post('/add-user-event/:user_id/:event_id', async (req, res) => {
+  try {
+    const { user_id, event_id } = req.params;
+    await userService.addUserToEvent(user_id, event_id);
+    res.status(201).send('User added to event successfully');
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+router.post('/add-user-group/:user_id/:group_id', async (req, res) => {
+  try {
+    const { user_id, group_id } = req.params;
+    await userService.addUserToGroup(user_id, group_id);
+    res.status(201).send('User added to group successfully');
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 module.exports = router;
