@@ -12,6 +12,27 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const record = await eventUserService.getUserById(
+      req.params.user_id
+    );
+    res.status(200).send(record);
+  } catch (error) {
+    res.status(error.code ?? 400).send(error.message);
+  }
+});
+
+router.get('/event/:event_id', async (req, res) => {
+  try {
+    const record = await eventUserService.getEventById(
+      req.params.event_id
+    );
+    res.status(200).send(record);
+  } catch (error) {
+    res.status(error.code ?? 400).send(error.message);
+  }
+});
 // Get a specific event-user relation
 router.get('/:event_id/:user_id', async (req, res) => {
   try {
@@ -24,6 +45,8 @@ router.get('/:event_id/:user_id', async (req, res) => {
     res.status(error.code ?? 400).send(error.message);
   }
 });
+
+
 
 // Create a new event-user relation
 router.post('/add', async (req, res) => {

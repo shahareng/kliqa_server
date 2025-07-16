@@ -1,7 +1,9 @@
 const UserController = require('../controllers/userscontroller');
+const { User } = require('../models');
 const { userValidator, commonValidator } = require('../utils/validators');
 const { validatePositiveInteger } = require('../utils/validators/commonValidator');
 const { validateUserData, checkForDuplicateEmail, checkForDuplicatePhone } = require('../utils/validators/userValidator');
+const eventService = require('./eventService');
 
 class UserService {
   async createUser(data) {
@@ -40,7 +42,16 @@ class UserService {
   async getAllUsers() {
     return await UserController.readAll();
   }
+async addUserToEvent(user_id, event_id) {
+    const user = await this.getUserById(user_id);
+    const event = await eventService.getEventById(event_id);
 
+    if (!user || !event) {
+      throw new Error('User or event not found');
+    }
+
+    await user.addEvent(event);
+  }
   
 }
 

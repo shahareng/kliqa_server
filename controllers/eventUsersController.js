@@ -1,8 +1,5 @@
 const { EventUser, User, Event } = require('../models');
 
-async function create(data) {
-  return await EventUser.create(data);
-}
 
 async function read(filter = {}) {
   return await EventUser.findAll({
@@ -50,13 +47,32 @@ async function readAll() {
     ]
   });
 }
+async function findByUserId(user_id) {
+  return await EventUser.findAll({
+    where: { user_id },
+    include: [
+      { model: User },
+      { model: Event }
+    ]
+  });
+}
+async function findByEventId(event_id) {
+  return await EventUser.findAll({
+    where: { event_id },
+    include: [
+      { model: User },
+      { model: Event }
+    ]
+  });
+}
 
 module.exports = {
-  create,
   read,
   readOne,
   update,
   deleteById,
   readAll,
-  readEntityById
+  readEntityById,
+  findByUserId,
+  findByEventId
 };
