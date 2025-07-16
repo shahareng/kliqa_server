@@ -1,21 +1,28 @@
 const UserController = require('../controllers/userscontroller');
+const { userValidator, commonValidator } = require('../utils/validators');
+const { validatePositiveInteger } = require('../utils/validators/commonValidator');
+const { validateUserData, checkForDuplicateEmail, checkForDuplicatePhone } = require('../utils/validators/userValidator');
 
 class UserService {
   async createUser(data) {
-    try {
-      this.#validateUserData(data);
-      await this.#checkForDuplicateEmail(data.email);
-      return await UserController.create(data);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+   try {
+    validateUserData(data);
+    await checkForDuplicateEmail(data.email, UserController);
+    await checkForDuplicatePhone(data.phone, UserController);
+    return await UserController.create(data);
+  } catch (error) {
+    console.log("createUser  "+error);
+      throw error; 
+  }
   }
 
   async getUserById(id) {
+    validatePositiveInteger(id, 'id');
     return await UserController.readEntityById(id);
   }
 
   async updateUser(id, updatedData) {
+    validatePositiveInteger(id, 'id');
     const user = await UserController.readEntityById(id);
     if (!user) return null;
     await user.update(updatedData);
@@ -23,6 +30,7 @@ class UserService {
   }
 
   async deleteUser(id) {
+    validatePositiveInteger(id, 'id');
     const user = await UserController.readEntityById(id);
     if (!user) return false;
     await user.destroy();
@@ -33,23 +41,7 @@ class UserService {
     return await UserController.readAll();
   }
 
-  #validateUserData(data) {
-    if (!data.first_name || !data.last_name) {
-      throw new Error('Missing required fields');
-    }
-  }
-
-  async #checkForDuplicateEmail(email) {
-    if (!email) return;
-    const existing = await UserController.readOne({ email });
-    if (existing) {
-      throw new Error('User with this email already exists');
-    }
-  }
-
-  #isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+  
 }
 
 module.exports = new UserService();

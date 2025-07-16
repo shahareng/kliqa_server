@@ -24,6 +24,7 @@ const User = sequelize.define('User', {
   },
   phone: {
   type: DataTypes.STRING,
+  unique: true,
   validate: {
       is: /^[0-9+\-()\s]{7,15}$/i 
     }
@@ -45,6 +46,7 @@ const User = sequelize.define('User', {
   },
   linkedin_Id: {
     type: DataTypes.STRING,
+    unique: true
   },
   facebook_url: {
     type: DataTypes.STRING,
@@ -54,6 +56,7 @@ const User = sequelize.define('User', {
   },
   linkedin_url: {
     type: DataTypes.STRING,
+    unique: true,
     validate: {
       isUrl: true,
     }
