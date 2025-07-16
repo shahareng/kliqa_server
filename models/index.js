@@ -5,7 +5,9 @@ const User = require('./users'),
       EventUser = require('./event_users'),
       JobsHistory = require('./jobs_history'),
       Connection = require('./connections'),
-      CommunityValue = require('./community_value');
+      CommunityValue = require('./community_value'),
+      Groups = require('./community_group'),
+      GroupUser = require('./group_users');
 
 // Associations
 User.belongsToMany(Event, {
@@ -34,6 +36,22 @@ Connection.belongsTo(User, { foreignKey: 'user_id2', as: 'receiver' });
 CommunityValue.hasMany(User, { foreignKey: 'community_value' });
 User.belongsTo(CommunityValue, { foreignKey: 'community_value' });
 
+User.belongsToMany(Groups, {
+  through: GroupUser,
+  foreignKey: 'user_id',
+  otherKey: 'group_id',
+});
+Groups.belongsToMany(User, {
+  through: GroupUser,
+  foreignKey: 'group_id',
+  otherKey: 'user_id',
+});
+GroupUser.belongsTo(User, { foreignKey: 'user_id' });
+GroupUser.belongsTo(Groups, { foreignKey: 'group_id' });
+
+User.hasMany(GroupUser, { foreignKey: 'user_id' });
+Groups.hasMany(GroupUser, { foreignKey: 'group_id' });
+
 module.exports = {
   sequelize,
   User,
@@ -42,4 +60,6 @@ module.exports = {
   JobsHistory,
   Connection,
   CommunityValue,
+  Groups,
+  GroupUser
 };

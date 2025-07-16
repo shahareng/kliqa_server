@@ -4,6 +4,7 @@ const { userValidator, commonValidator } = require('../utils/validators');
 const { validatePositiveInteger } = require('../utils/validators/commonValidator');
 const { validateUserData, checkForDuplicateEmail, checkForDuplicatePhone } = require('../utils/validators/userValidator');
 const eventService = require('./eventService');
+const groupService = require('./groupService');
 
 class UserService {
   async createUser(data) {
@@ -51,6 +52,18 @@ async addUserToEvent(user_id, event_id) {
     }
 
     await user.addEvent(event);
+  }
+  
+
+  async addUserToGroup(user_id, group_id) {
+    const user = await this.getUserById(user_id);
+    const group = await groupService.getGroupById(group_id);
+
+    if (!user || !group) {
+      throw new Error('User or group not found');
+    }
+
+    await user.addGroup(group);
   }
   
 }

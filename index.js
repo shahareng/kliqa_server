@@ -17,6 +17,8 @@ app.use('/connections', require('./routes/connectionsRouter'));
 app.use('/jobs_history', require('./routes/jobsHistoryRouter'));
 app.use('/event_users', require('./routes/eventUsersRouter'));
 app.use('/community_values',  require('./routes/communityValueRoutes'));
+app.use('/groups', require('./routes/groupRoutes'));
+
 
 sequelize.authenticate()
   .then(() => {
