@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 });
 router.get('/:group_id', async (req, res) => {
   try {
-    const group = await groupService.getGroup(req.params.group_id);
+    const group = await groupService.getGroupById(req.params.group_id);
     res.status(200).send(group);
   } catch (error) {
     res.status(400).send(error.message);
