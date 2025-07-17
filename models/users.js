@@ -24,18 +24,18 @@ const User = sequelize.define('User', {
   },
   phone: {
   type: DataTypes.STRING,
-  unique: true,
-  validate: {
-      is: /^[0-9+\-()\s]{7,15}$/i 
-    }
+  // unique: true,
+  // validate: {
+  //     is: /^[0-9+\-()\s]{7,15}$/i 
+  //   }
   },
   email: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
-    validate: {
-      isEmail: true,
-    },
+    // unique: true,
+    // validate: {
+    //   isEmail: true,
+    // },
   },
   
   city: {
@@ -43,39 +43,51 @@ const User = sequelize.define('User', {
   },
   years_of_experience: {
     type: DataTypes.INTEGER,
+        allowNull: true,
   },
   linkedin_Id: {
     type: DataTypes.STRING,
-    unique: true
+    unique: true,
+    allowNull: true,
+
   },
   facebook_url: {
     type: DataTypes.STRING,
-    validate: {
-      isUrl: true,
-    }
+    allowNull: true,
+
+    // validate: {
+    //   isUrl: true,
+    // }
   },
   linkedin_url: {
     type: DataTypes.STRING,
     unique: true,
-    validate: {
-      isUrl: true,
-    }
+    allowNull: true,
+
+    // validate: {
+    //   isUrl: true,
+    // }
   },
   community_value: {
     type: DataTypes.INTEGER,
+    allowNull: true,
   },
   additional_info: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   wants_updates: {
     type: DataTypes.BOOLEAN,
+    allowNull: true,
   },
   admin_notes: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
+    allowNull: true,
   }
 }, {
   tableName: 'users',

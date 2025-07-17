@@ -9,9 +9,9 @@ const groupService = require('./groupService');
 class UserService {
   async createUser(data) {
    try {
-    validateUserData(data);
-    await checkForDuplicateEmail(data.email, UserController);
-    await checkForDuplicatePhone(data.phone, UserController);
+    // validateUserData(data);
+    // await checkForDuplicateEmail(data.email, UserController);
+    // await checkForDuplicatePhone(data.phone, UserController);
     return await UserController.create(data);
   } catch (error) {
     console.log("createUser  "+error);
