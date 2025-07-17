@@ -5,6 +5,7 @@ const fs = require('fs');
 const mammoth = require('mammoth');
 const OpenAI = require('openai');
 const User = require('../models/users'); 
+const responseText = completion.choices[0].message.content;
 
 const router = express.Router();
 
@@ -35,9 +36,7 @@ router.post('/cv', upload.single('file'), async (req, res) => {
   "community_value", "additional_info", "wants_updates", "admin_notes", "created_at"
 ]
 
-אם חסר מידע כלשהו, הכנס "N/A" לשדות מסוג טקסט, 0 לשדות מסוג מספר ו-false לשדות מסוג בוליאני.
-החזר אך ורק JSON תקין – ללא הסברים, ללא הערות, ללא markdown, וללא קוד חוסם.
-הנה תוכן הקובץ:
+אם חסר מידע כלשהו, הכנס "N/A" לשדות מסוג טקסט, 0 לשדות מסוג מספר ו-false לשדות מסוג בוליאני. הנה תוכן הקובץ:
 """
 ${fileContent}
 """`;
@@ -53,13 +52,9 @@ ${fileContent}
 
     const responseText = completion.choices[0].message.content;
 
-    // ניסוי חכם להוציא JSON נקי מהתגובה
     let jsonData;
     try {
-      // נסה קודם למצוא בלוק JSON בין ```json ... ``` או ``` ... ```
-      const match = responseText.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-      const pureJsonString = match ? match[1] : responseText.trim();
-      jsonData = JSON.parse(pureJsonString);
+      jsonData = JSON.parse(responseText.replace(/```json|```/g, ''));
     } catch (e) {
       return res.status(400).json({ error: 'Failed to parse JSON from OpenAI response', raw: responseText });
     }
