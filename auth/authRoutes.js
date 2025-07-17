@@ -6,7 +6,9 @@ const router = express.Router();
 
 const CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
 const CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:5173/members/general';
+
+
+const REDIRECT_URI = `http://localhost:5173/members/general`
 
 
 router.get('/test', (req, res) => {
@@ -14,7 +16,7 @@ router.get('/test', (req, res) => {
   console.log(result);
 });
 
-router.get('/linkedin/callback', async (req, res) => {
+router.get('/linkedin/callback', async (req, res) => {2
   const { code } = req.query;
   console.log('received LinkedIn:', code);
 
@@ -43,13 +45,14 @@ router.get('/linkedin/callback', async (req, res) => {
 
     console.log('request user profile ');
     const profileRes = await axios.get(
-      'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,vanityName,profilePicture(displayImage~:playableStreams))',
+      'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName)',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       }
-    );
+  );
+
 
     console.log('user profile detailes ', profileRes.data);
 const emailRes = await axios.get(

@@ -8,8 +8,12 @@ app.use(cors())
 app.use(express.json())
 
 const { sequelize } = require('./models');
+const cvUploadRoutes = require('./routes/cvUploadRoutes');
 
 
+
+app.use('/upload', require('./routes/uploadRoutes'));
+app.use('/upload', cvUploadRoutes);
 app.use('/auth', require('./auth/authRoutes'));
 app.use('/events', require('./routes/eventRoutes'));
 app.use('/users', require('./routes/usersRoutes'));
@@ -18,6 +22,8 @@ app.use('/jobs_history', require('./routes/jobsHistoryRouter'));
 app.use('/event_users', require('./routes/eventUsersRouter'));
 app.use('/community_values',  require('./routes/communityValueRoutes'));
 app.use('/groups', require('./routes/groupRoutes'));
+
+
 
 
 sequelize.authenticate()
